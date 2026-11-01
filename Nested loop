@@ -1,0 +1,76 @@
+print("=== ATM Cash Dispenser ===")
+
+a = b = c = d = e = f = 0
+customers = 0
+total = 0
+
+while True:
+    name = input("\nEnter customer name: ")
+    amount = int(input("Enter amount: "))
+
+    if amount <= 0:
+        print("Invalid amount!")
+        continue
+
+    print("\nDispensing notes:")
+    remaining = amount
+    i = 1
+
+    # Nested while loop
+    while i <= 6:
+        if i == 1:
+            note = 100
+        elif i == 2:
+            note = 50
+        elif i == 3:
+            note = 20
+        elif i == 4:
+            note = 10
+        elif i == 5:
+            note = 5
+        else:
+            note = 1
+
+        count = remaining // note
+
+        if count > 0:
+            print(count, "x", note)
+            remaining = remaining % note
+
+            if i == 1: a += count
+            elif i == 2: b += count
+            elif i == 3: c += count
+            elif i == 4: d += count
+            elif i == 5: e += count
+            else: f += count
+
+        i += 1
+
+    customers += 1
+    total += amount
+
+    if input("Next customer? yes/no: ").lower() != "yes":
+        break
+
+# Outer for loop
+print("\n=== Daily Report ===")
+
+for i in range(1, 7):
+    if i == 1: note, count = 100, a
+    elif i == 2: note, count = 50, b
+    elif i == 3: note, count = 20, c
+    elif i == 4: note, count = 10, d
+    elif i == 5: note, count = 5, e
+    else: note, count = 1, f
+
+    if count > 0:
+        print(note, "unit notes:", count)
+
+        # Nested for loop
+        for j in range(count):
+            print("=", end="")
+        print()
+
+print("Customers served:", customers)
+print("Total dispensed:", total)
+print("ATM closed. Goodbye!")
